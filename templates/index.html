@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/assets/images/favicon.png">
+    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
+    <!-- Custom CSS -->
+    <link href="/static/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <link href="/static/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="/static/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/style.min.css" rel="stylesheet">
+    <style>
+        .customize-input {
+            position: relative;
+            max-width: 400px;
+            margin: auto;
+        }
+        .customize-input input {
+            padding-right: 2.5rem;
+            border-radius: 0.25rem;
+        }
+        .form-control-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #6c757d;
+        }
+        .custom-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .custom-radius {
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+
+<body>
+  
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin6">
+            <nav class="navbar top-navbar navbar-expand-md">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand">
+                        <!-- Logo icon -->
+                        <a href="index.html">
+                            <b class="logo-icon">
+                                <!-- Dark Logo icon -->
+                                <img src="/static/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo icon -->
+                                <img src="/static/assets/images/logo-icon.png" alt="homepage" class="light-logo" />
+                            </b>
+                            <!--End Logo icon -->
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- dark Logo text -->
+                                <img src="/static/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo text -->
+                                <img src="/static/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                            </span>
+                        </a>
+                    </div>
+             
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                            class="ti-more"></i></a>
+                </div>
+               
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                        <!-- Other menu items can be added here -->
+                    </ul>
+                    <ul class="navbar-nav float-right">
+                        {% if user.is_authenticated %}
+                            <!-- Foydalanuvchi tizimga kirgan bo'lsa -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="/static/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                    <span class="ml-2 d-none d-lg-inline-block">
+                                        <span>Salom,</span> <span class="text-dark">{{ user.username }}</span>
+                                        <i data-feather="chevron-down" class="svg-icon"></i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'logout_user' %}">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Chiqish
+                                    </a>
+                                </div>
+                            </li>
+                        {% else %}
+                            <!-- Foydalanuvchi tizimga kirgan bo'lmasa -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login_user' %}">Kirish</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register_user' %}">Ro'yxatdan o'tish</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+                
+                
+            </nav>
+        </header>
+
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                     <!-- Xodimlar menyu elementi -->
+                    <li class="sidebar-item"> 
+                        <a class="sidebar-link sidebar-link" href="{% url 'index' %}" aria-expanded="false">
+                            <i data-feather="users" class="feather-icon"></i>
+                            <span class="hide-menu">Xodimlar</span>
+                        </a>
+                    </li>
+                    <!-- Ajratuvchi -->
+                    <li class="list-divider"></li>
+                                                           
+
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Ro'yxatdan o'tish</span></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'login_user' %}"
+                                aria-expanded="false"><i data-feather="lock" class="feather-icon"></i><span
+                                    class="hide-menu">Login
+                                </span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                                href="{% url 'register_user' %}" aria-expanded="false"><i data-feather="lock"
+                                    class="feather-icon"></i><span class="hide-menu">Register
+                                </span></a>
+                        </li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'logout_user' %}"
+                                aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
+                                    class="hide-menu">Logout</span></a></li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+    {% if user.is_staff or user.is_superuser %}
+        <div class="container mt-4">
+            <!-- Qidiruv Maydoni -->
+            <div>
+                <div class="card-body">
+                    <h4 class="card-title">Qidiruv</h4>
+                    <div class="customize-input">
+                        <form method="get" action="{% url 'index' %}">
+                            <input class="form-control custom-shadow custom-radius border-0 bg-white" 
+                                   id="searchInput" type="search" name="search" 
+                                   placeholder="Qidirish" aria-label="Search" 
+                                   value="{{ search_query }}">
+                            <i class="form-control-icon" data-feather="search"></i>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Bitta Jadval -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="card-title">Xodimlar va Xodimlarning davomat jadvali</h4>
+                        <!-- Xodim qo'shish tugmasi -->
+                        <a href="{% url 'add_staff' %}" class="btn btn-primary">
+                            Xodim Qo'shish
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ism</th>
+                                    <th>Familya</th>
+                                    <th>Lavozim</th>
+                                    <th>Boshlanish Vaqti</th>
+                                    <th>Tugash Vaqti</th>
+                                    <th>Sana</th>
+                                    <th>Holat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if staff_data %}
+                                    {% for data in staff_data %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ data.staff.first_name }}</td>
+                                            <td>{{ data.staff.last_name }}</td>
+                                            <td>{{ data.staff.position.title }}</td>
+                                            <td>{{ data.shift.start_time }}</td>
+                                            <td>{{ data.shift.end_time }}</td>
+                                            <td>{{ data.staff_shift.date }}</td>
+                                            <td>{{ data.attendance.is_present|yesno:"Kelgan, Kelmagan" }}</td>  
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="9">Ma'lumot topilmadi</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>                            
+                        </table>
+                    </div>                    
+                </div>
+            </div>            
+        </div>
+    {% else %}
+        <p>Kechirasiz, Siz Admin emassiz, shuning uchun ma'lumotlarni ko'ra olmaysiz.</p>
+    {% endif %}
+   
+    
+        
+    
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#searchInput').on('keyup', function() {
+                    var value = $(this).val().toLowerCase();
+                    $('#dataTable tbody tr').filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+            });
+        </script>
+        
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+        
+      
+    </div>
+
+    <script src="/static/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/static/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/static/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script src="/static/dist/js/app-style-switcher.js"></script>
+    <script src="/static/dist/js/feather.min.js"></script>
+    <script src="/static/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/static/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/static/dist/js/custom.min.js"></script>
+    <!--This page JavaScript -->
+    <script src="/static/assets/extra-libs/c3/d3.min.js"></script>
+    <script src="/static/assets/extra-libs/c3/c3.min.js"></script>
+    <script src="/static/assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="/static/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="/static/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="/static/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/static/dist/js/pages/dashboards/dashboard1.min.js"></script>
+</body>
+
+</html>
